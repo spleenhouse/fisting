@@ -70,7 +70,7 @@ footer {
             }
         }).then(
             function (response) {
-                price.textContent = response.data;
+                price.textContent = response.data.substring(1);
             }).catch(function (error) {
                 console.log(error);
             }
