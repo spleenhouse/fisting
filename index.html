@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Fisting Is</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
+<style>
+body {
+  font-family: 'Anton', sans-serif;
+  background-color: black;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-top-text {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  font-size: x-large;
+  transform: translate(-50%, -50%);
+}
+
+.center-bottom-text {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  font-size: xx-large;
+  transform: translate(-50%, -50%);
+}
+.container {
+  position: relative;
+  text-align: center;
+  margin-top: 3rem;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <img width="70%"  src="van.jpg" class="center"/>
+        <div id="topDate" class="center-top-text"></div>
+        <div class="center-bottom-text">Fisting is now <span id="price"></span> bucks</div>
+    </div>
+    <footer>Data from <a href="https://www.statbureau.org">statbureau.org</a></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const currentDate = new Date();
+        const price = document.querySelector('#price');
+        document.getElementById('topDate').textContent = currentDate.toDateString();
+    
+        axios.get('https://www.statbureau.org/calculate-inflation-price-json', {
+            params: {
+                country: 'united-states',
+                start: '1999/9/17',
+                end: currentDate.getFullYear().toString() + '/' + currentDate.getMonth().toString() + '/' + currentDate.getDate().toString(),
+                amount: 300
+            }
+        }).then(
+            function (response) {
+                price.textContent = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            }
+        );
+    </script>
+
+</body>
